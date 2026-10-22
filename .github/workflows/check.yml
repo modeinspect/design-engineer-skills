@@ -1,0 +1,35 @@
+name: check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Shared copies match their masters
+        run: node scripts/sync-shared.mjs --check
+      - name: Scripts parse
+        run: |
+          set -e
+          for f in $(git ls-files '*.mjs'); do node --check "$f"; done
+      - name: Every skill has a SKILL.md whose name matches its folder
+        run: |
+          set -e
+          for d in skills/*/; do
+            n=$(basename "$d")
+            test -f "$d/SKILL.md" || { echo "$d has no SKILL.md"; exit 1; }
+            grep -q "^name: $n$" "$d/SKILL.md" || { echo "$d/SKILL.md: name does not equal $n"; exit 1; }
+          done
+      - name: No em dashes, en dashes or " -- " in prose
+        run: |
+          set -e
+          if git ls-files '*.md' | xargs grep -n -- '—\|–' ; then echo "dashes found"; exit 1; fi
+          # " -- " is allowed only in git commands (an argument separator), so check the Markdown outside code spans.
+          if git ls-files '*.md' | xargs grep -n ' -- ' | grep -v '`[^`]* -- [^`]*`' ; then echo "' -- ' found outside code spans"; exit 1; fi
