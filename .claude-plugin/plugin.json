@@ -1,0 +1,14 @@
+{
+  "name": "design-engineer",
+  "displayName": "Design Engineer Skills",
+  "version": "1.0.0",
+  "description": "Six agent skills for designers who ship UI in a real codebase: from a fresh clone to a pull request an engineer can review. For Claude Code, Cursor and Codex.",
+  "author": {
+    "name": "Modeinspect",
+    "url": "https://modeinspect.com"
+  },
+  "homepage": "https://modeinspect.com/design-engineer/skills",
+  "repository": "https://github.com/modeinspect/design-engineer-skills",
+  "license": "MIT",
+  "keywords": ["design-engineering", "design-systems", "visual-qa", "pull-requests", "playwright", "react"]
+}

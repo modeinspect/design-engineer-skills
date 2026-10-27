@@ -20,6 +20,11 @@ scripts/sync-shared.mjs     copies each shared file into the skills that use it
 ```
 
 `npx skills add modeinspect/<repo>` discovers everything under `skills/`.
+The repo is also a Claude Code plugin and its own marketplace
+(`.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`), which load
+the same `skills/` folder. Plugin users stay on the `version` in
+`plugin.json` until it changes: bump it in any change a user should receive,
+then run `claude plugin validate .`.
 Each skill owns its own directory and nothing else. `README.md`, `AGENTS.md`,
 `LICENSE` and other skills' directories are maintained by the pack owner.
 

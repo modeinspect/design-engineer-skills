@@ -25,6 +25,18 @@ Every skill works on its own. Without the CLI, copy a folder from `skills/`
 into the directory your agent reads skills from, such as `.claude/skills/`
 for Claude Code.
 
+In Claude Code you can also install the pack as a plugin from this
+repository, which is its own marketplace:
+
+```bash
+claude plugin marketplace add modeinspect/design-engineer-skills
+claude plugin install design-engineer@modeinspect
+```
+
+Inside a session, `/plugin marketplace add modeinspect/design-engineer-skills`
+does the same. Plugin skills carry the plugin name, so you start one by name
+as `/design-engineer:reviewable-ui-pr`.
+
 Then open your repository in the agent and ask in plain words. "Get this
 running" starts `repo-orientation`. The three screenshot skills
 (`component-impact`, `visual-qa-branch`, `reviewable-ui-pr`) start only when
