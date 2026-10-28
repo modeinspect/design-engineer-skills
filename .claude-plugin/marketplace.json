@@ -1,0 +1,15 @@
+{
+  "name": "modeinspect",
+  "description": "Agent skills from Modeinspect for designers who ship UI in a real codebase.",
+  "owner": {
+    "name": "Modeinspect",
+    "url": "https://modeinspect.com"
+  },
+  "plugins": [
+    {
+      "name": "design-engineer",
+      "source": "./",
+      "description": "Six agent skills for designers who ship UI in a real codebase: from a fresh clone to a pull request an engineer can review. For Claude Code, Cursor and Codex."
+    }
+  ]
+}
