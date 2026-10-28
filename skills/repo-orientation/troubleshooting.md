@@ -52,7 +52,7 @@ The **Who** column says who can apply the fix:
 | An auth library logs a redirect loop or key mismatch | Wrong or mismatched auth keys in the local env | Ask for the dev keys for this environment | Engineer |
 | Shell renders, data areas are empty or show errors; network shows `502`, `ECONNREFUSED`, `fetch failed` | Backend or API not running or not reachable | Look for a mock layer, a documented backend command or a staging API var. Report which screens degrade | Engineer |
 | Blank white page, no overlay | Uncaught client error or a missing root element | Read the browser console; the first error names the cause | Agent to diagnose |
-| `curl` fails but the browser works, or the reverse | Server bound to IPv6 `localhost` (`::1`) and the client used `127.0.0.1`, or the reverse | Use the exact URL the server printed | Agent |
+| A request from the terminal fails but the browser works, or the reverse | Server bound to IPv6 `localhost` (`::1`) and the client used `127.0.0.1`, or the reverse | Use the exact URL the server printed | Agent |
 | Unstyled page | CSS pipeline failed (PostCSS or Tailwind config) | The terminal log names the failing plugin | Engineer |
 
 ## Rules for any fix

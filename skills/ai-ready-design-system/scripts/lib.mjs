@@ -39,8 +39,8 @@ export function readJsonLoose(text) {
   return JSON.parse(noComments);
 }
 
-// Removes comments from config text and keeps strings whole, so a URL such as
-// "https://x//y" survives. "js" covers JS, JSON and JSONC (`//` and `/* */`);
+// Removes comments from config text and keeps strings whole, so the `//` inside
+// a quoted URL survives. "js" covers JS, JSON and JSONC (`//` and `/* */`);
 // "yaml" covers `#` comments.
 const JS_COMMENTS = /("(?:[^"\\\n]|\\.)*"|'(?:[^'\\\n]|\\.)*'|`(?:[^`\\]|\\.)*`)|\/\*[\s\S]*?\*\/|\/\/[^\n]*/g;
 const YAML_COMMENTS = /("(?:[^"\\\n]|\\.)*"|'(?:[^'\n]|'')*')|(^|\s)#[^\n]*/gm;
