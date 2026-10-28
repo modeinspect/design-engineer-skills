@@ -302,18 +302,18 @@ const shareList = Object.values(categoryShares);
 // Each category weighs the same, so a large spacing count cannot hide off-token colors.
 const untokenizedShare = shareList.length ? shareList.reduce((a, b) => a + b, 0) / shareList.length : null;
 const hardcodedShare = scoredTotal ? totals.raw / scoredTotal : null;
-const colorTokenCount = tokens.color.size;
+const colorCount = tokens.color.size;
 
 function scoreTokens() {
   if (untokenizedShare == null) return 0;
-  if (untokenizedShare <= 0.05 && colorTokenCount >= 4) return 3;
-  if (untokenizedShare <= 0.15 && colorTokenCount >= 4) return 2;
-  if (untokenizedShare <= 0.4 || colorTokenCount >= 4) return 1;
+  if (untokenizedShare <= 0.05 && colorCount >= 4) return 3;
+  if (untokenizedShare <= 0.15 && colorCount >= 4) return 2;
+  if (untokenizedShare <= 0.4 || colorCount >= 4) return 1;
   return 0;
 }
 
 // ---------- criterion 3: typed variants ----------
-const VARIANT_PROP = /^\s*(?:readonly\s+)?(variant|size|color|tone|intent|kind|appearance|shape|emphasis|density|status)\??\s*:\s*([^;\n]+)/gm;
+const VARIANT_PROP = /^\s*(?:readonly\s+)?(shape|variant|size|color|tone|intent|kind|appearance|emphasis|density|status)\??\s*:\s*([^;\n]+)/gm;
 const dsFiles = [...new Set(dsDefs.map((d) => d.file))];
 let variantApiFiles = 0;
 const untypedProps = [];
@@ -537,12 +537,12 @@ const criteria = [
   },
   {
     id: 2, name: "Tokens in code", score: scoreTokens(),
-    evidence: `${colorTokenCount} color, ${tokens.spacing.size} spacing, ${tokens.radius.size} radius, ${tokens.type.size} type tokens defined; ${scoredTotal} styling values in ${scanned.length} UI files: ${pct(hardcodedShare)} hard-coded, ${pct(totals.palette / (scoredTotal || 1))} framework palette. Not from project tokens, by category: ${Object.entries(categoryShares).map(([k, v]) => `${k} ${pct(v)}`).join(", ")}; mean ${pct(untokenizedShare)}`,
+    evidence: `${colorCount} color, ${tokens.spacing.size} spacing, ${tokens.radius.size} radius, ${tokens.type.size} type tokens defined; ${scoredTotal} styling values in ${scanned.length} UI files: ${pct(hardcodedShare)} hard-coded, ${pct(totals.palette / (scoredTotal || 1))} framework palette. Not from project tokens, by category: ${Object.entries(categoryShares).map(([k, v]) => `${k} ${pct(v)}`).join(", ")}; mean ${pct(untokenizedShare)}`,
     findings: [
       ...take(rawHits.filter((h) => h.kind === "raw")).map((h) => `Hard-coded ${h.category}: ${h.value} at ${h.at}`),
       ...take(rawHits.filter((h) => h.kind === "palette")).map((h) => `Framework palette color: ${h.value} at ${h.at}`),
     ],
-    metrics: { tokenSources: tokens.sources, colorTokens: colorTokenCount, usage, hardcodedShare, categoryShares, untokenizedShare, dsLayer: layerCounts.ds, otherLayer: layerCounts.other, unclassified: [...unknownClasses.entries()].sort((a, b) => b[1] - a[1]).slice(0, 15), hits: opts.json ? rawHits : undefined },
+    metrics: { tokenSources: tokens.sources, colorTokens: colorCount, usage, hardcodedShare, categoryShares, untokenizedShare, dsLayer: layerCounts.ds, otherLayer: layerCounts.other, unclassified: [...unknownClasses.entries()].sort((a, b) => b[1] - a[1]).slice(0, 15), hits: opts.json ? rawHits : undefined },
   },
   {
     id: 3, name: "Typed variants", score: scoreVariants(),
